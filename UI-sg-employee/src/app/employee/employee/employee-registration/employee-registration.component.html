@@ -1,0 +1,92 @@
+<div class="alert alert-success" *ngIf="success">
+    <h4 class="alert-heading">Register successfully</h4>
+    <button class="btn btn-md btn-warning" (click)="cancel()">Cancel</button>
+</div>
+<div class="alert alert-danger" *ngIf="error">
+    <h4 class="alert-heading">Error!!</h4>
+    <button class="btn btn-md btn-warning" (click)="cancel()">Cancel</button>
+</div>
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label for="inputFname" class="col-sm-2 col-form-label">First Name</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="firstName" class="form-control" id="inputFname" pattern='[a-zA-Z]{1,}' placeholder="Firstname">
+      </div>
+      <div *ngIf="!isValid || (employeeForm.controls['firstName'].invalid && (employeeForm.controls['firstName'].dirty || employeeForm.controls['firstName'].touched))" class="alert alert-danger">
+        <div *ngIf="employeeForm.controls['firstName'].errors.required">
+        First Name is required.
+        </div>
+        <div *ngIf="employeeForm.controls['firstName'].errors?.pattern">
+        Gap should not be there in First name.
+        </div>
+    </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputLname" class="col-sm-2 col-form-label">Last Name</label>
+      <div class="col-sm-10">
+        <input type="text" formControlName="lastName" pattern='[a-zA-Z]{1,}' class="form-control" id="inputLname" placeholder="Lastname" >
+      </div>
+      <div *ngIf="!isValid || (employeeForm.controls['lastName'].invalid && (employeeForm.controls['lastName'].dirty || employeeForm.controls['lastName'].touched))" class="alert alert-danger">
+        <div *ngIf="employeeForm.controls['lastName'].errors.required">
+        Last Name is required.
+        </div>
+        <div *ngIf="employeeForm.controls['lastName'].errors?.pattern">
+        Gap should not be there in Last name.
+        </div>
+    </div>
+    </div>
+    <fieldset class="form-group">
+      <div class="row">
+        <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="gender" id="gridRadios1" value="Male" >
+            <label class="form-check-label" for="gridRadios1">
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="gender" id="gridRadios2" value="Female" >
+            <label class="form-check-label" for="gridRadios2">
+              Female
+            </label>
+          </div>
+        </div>
+        <div *ngIf="!isValid || (employeeForm.controls['gender'].invalid && (employeeForm.controls['gender'].dirty || employeeForm.controls['gender'].touched))" class="alert alert-danger">
+            <div *ngIf="employeeForm.controls['gender'].errors.required">
+            Gender is required.
+            </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="form-group row">
+        <label for="dob" class="col-sm-2 col-form-label">Date of brith</label>
+        <div class="col-sm-10">
+          <input type="date" formControlName="dob" class="form-control" id="dob" >
+        </div>
+        <div *ngIf="!isValid || (employeeForm.controls['dob'].invalid && (employeeForm.controls['dob'].dirty || employeeForm.controls['dob'].touched))" class="alert alert-danger">
+          <div *ngIf="employeeForm.controls['dob'].errors.required">
+          DOB is required.
+          </div>
+          </div>
+      </div>
+      <div class="form-group row">
+        <label for="dpt" class="col-sm-2 col-form-label">Department</label>
+        <div class="col-sm-10">
+          <input type="text" formControlName="department" pattern="^([a-zA-Z0-9 _-]+)$" class="form-control" id="dpt" >
+        </div>
+        <div *ngIf="!isValid || (employeeForm.controls['department'].invalid && (employeeForm.controls['department'].dirty || employeeForm.controls['department'].touched))" class="alert alert-danger">
+            <div *ngIf="employeeForm.controls['department'].errors.required">
+            Department Name is required.
+            </div>
+            <div *ngIf="employeeForm.controls['department'].errors?.pattern">
+                Department Name should only cantains alphabets and numbers 
+                </div>
+        </div>
+      </div>
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </div>
+  </form>
